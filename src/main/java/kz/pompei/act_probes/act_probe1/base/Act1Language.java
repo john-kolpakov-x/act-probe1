@@ -1,4 +1,4 @@
-package kz.pompei.act_probes.act_probe1;
+package kz.pompei.act_probes.act_probe1.base;
 
 import com.intellij.lang.Language;
 

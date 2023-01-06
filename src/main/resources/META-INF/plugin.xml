@@ -39,7 +39,7 @@
     <!--                           implementationClass="kz.pompei.act_probes.act_probe1.Act1ParserDefinition"/>-->
 
     <fileType name="Акт1"
-              implementationClass="kz.pompei.act_probes.act_probe1.Act1FileType"
+              implementationClass="kz.pompei.act_probes.act_probe1.base.Act1FileType"
               fieldName="INSTANCE"
               language="Акт1"
               extensions="акт1"/>

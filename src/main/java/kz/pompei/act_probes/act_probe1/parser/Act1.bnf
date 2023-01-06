@@ -1,0 +1,20 @@
+{
+  parserClass="kz.pompei.act_probes.act_probe1.gen.parser.SimpleParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Act1"
+  psiImplClassSuffix="Impl"
+  psiPackage="kz.pompei.act_probes.act_probe1.gen.psi"
+  psiImplPackage="kz.pompei.act_probes.act_probe1.gen.psi.impl"
+
+  elementTypeHolderClass="kz.pompei.act_probes.act_probe1.gen.psi.SimpleTypes"
+  elementTypeClass="kz.pompei.act_probes.act_probe1.parser.Act1ElementType"
+  tokenTypeClass="kz.pompei.act_probes.act_probe1.parser.Act1TokenType"
+}
+
+simpleFile ::= item_*
+
+private item_ ::= (property|COMMENT|CRLF)
+
+property ::= (KEY? SEPARATOR VALUE?) | KEY
