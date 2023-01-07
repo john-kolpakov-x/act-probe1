@@ -35,16 +35,16 @@
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
   <extensions defaultExtensionNs="com.intellij">
 
-    <lang.parserDefinition language="Акт1"
+    <lang.parserDefinition language="Act1"
                            implementationClass="kz.pompei.act_probes.act_probe1.parser.Act1ParserDefinition"/>
 
-    <fileType name="Акт1"
+    <fileType name="Act1"
               implementationClass="kz.pompei.act_probes.act_probe1.base.Act1FileType"
               fieldName="INSTANCE"
-              language="Акт1"
-              extensions="акт1"/>
+              language="Act1"
+              extensions="act1"/>
 
-    <lang.syntaxHighlighterFactory language="Акт1"
+    <lang.syntaxHighlighterFactory language="Act1"
                                    implementationClass="kz.pompei.act_probes.act_probe1.highlighter.Act1SyntaxHighlighterFactory"
     />
 

@@ -66,6 +66,6 @@ public class Act1ColorSettingsPage implements ColorSettingsPage {
   @SuppressWarnings("UnstableApiUsage")
   @Override
   public @NotNull @NlsContexts.ConfigurableName String getDisplayName() {
-    return "Акт1";
+    return "Act1";
   }
 }

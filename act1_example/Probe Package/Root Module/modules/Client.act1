@@ -1,0 +1,12 @@
+class Client
+  @Public Access
+
+do
+
+  act surname :Text
+    @Field
+
+  act name :Text
+    @Field
+
+done

@@ -18,17 +18,17 @@ public class Act1FileType extends LanguageFileType {
 
   @Override
   public @NonNls @NotNull String getName() {
-    return "Акт1";
+    return "Act1";
   }
 
   @Override
   public @NlsContexts.Label @NotNull String getDescription() {
-    return "Описание языка Акт1";
+    return "Description of Act1 language";
   }
 
   @Override
   public @NlsSafe @NotNull String getDefaultExtension() {
-    return "акт1";
+    return "act1";
   }
 
   @Override

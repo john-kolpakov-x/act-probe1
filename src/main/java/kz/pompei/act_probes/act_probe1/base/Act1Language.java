@@ -7,6 +7,6 @@ public class Act1Language extends Language {
   public static final Act1Language INSTANCE = new Act1Language();
 
   private Act1Language() {
-    super("Акт1");
+    super("Act1");
   }
 }
