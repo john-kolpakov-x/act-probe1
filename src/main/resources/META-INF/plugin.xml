@@ -44,5 +44,9 @@
               language="Акт1"
               extensions="акт1"/>
 
+    <lang.syntaxHighlighterFactory language="Акт1"
+                                   implementationClass="kz.pompei.act_probes.act_probe1.highlighter.Act1SyntaxHighlighterFactory"
+    />
+
   </extensions>
 </idea-plugin>
