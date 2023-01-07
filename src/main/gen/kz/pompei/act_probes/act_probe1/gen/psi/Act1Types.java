@@ -8,7 +8,7 @@ import kz.pompei.act_probes.act_probe1.parser.Act1ElementType;
 import kz.pompei.act_probes.act_probe1.parser.Act1TokenType;
 import kz.pompei.act_probes.act_probe1.gen.psi.impl.*;
 
-public interface SimpleTypes {
+public interface Act1Types {
 
   IElementType PROPERTY = new Act1ElementType("PROPERTY");
 

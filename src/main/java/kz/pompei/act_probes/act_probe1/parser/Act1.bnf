@@ -1,5 +1,5 @@
 {
-  parserClass="kz.pompei.act_probes.act_probe1.gen.parser.SimpleParser"
+  parserClass="kz.pompei.act_probes.act_probe1.gen.parser.Act1Parser"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
@@ -8,7 +8,7 @@
   psiPackage="kz.pompei.act_probes.act_probe1.gen.psi"
   psiImplPackage="kz.pompei.act_probes.act_probe1.gen.psi.impl"
 
-  elementTypeHolderClass="kz.pompei.act_probes.act_probe1.gen.psi.SimpleTypes"
+  elementTypeHolderClass="kz.pompei.act_probes.act_probe1.gen.psi.Act1Types"
   elementTypeClass="kz.pompei.act_probes.act_probe1.parser.Act1ElementType"
   tokenTypeClass="kz.pompei.act_probes.act_probe1.parser.Act1TokenType"
 }
