@@ -48,5 +48,7 @@
                                    implementationClass="kz.pompei.act_probes.act_probe1.highlighter.Act1SyntaxHighlighterFactory"
     />
 
+    <colorSettingsPage implementation="kz.pompei.act_probes.act_probe1.highlighter.Act1ColorSettingsPage"/>
+
   </extensions>
 </idea-plugin>
