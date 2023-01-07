@@ -7,12 +7,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class Act1File extends PsiFileBase {
 
-  protected Act1File(@NotNull FileViewProvider viewProvider) {
+  public Act1File(@NotNull FileViewProvider viewProvider) {
     super(viewProvider, Act1Language.INSTANCE);
   }
 
   @Override
   public @NotNull FileType getFileType() {
     return Act1FileType.INSTANCE;
+  }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "{}";
   }
 }
