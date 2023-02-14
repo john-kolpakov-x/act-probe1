@@ -12,11 +12,19 @@ public interface ProbeTypes {
   IElementType KEYWORD_STARTER = new ProbeElementType("KEYWORD_STARTER");
   IElementType NUMBER          = new ProbeElementType("NUMBER");
 
+  IElementType IF    = new ProbeElementType("IF");
+  IElementType ELSIF = new ProbeElementType("ELSIF");
+  IElementType ELSE  = new ProbeElementType("ELSE");
+  IElementType FI    = new ProbeElementType("FI");
+
   IElementType PARENTHESIS_OPEN  = new ProbeElementType("PARENTHESIS_OPEN");
   IElementType PARENTHESIS_CLOSE = new ProbeElementType("PARENTHESIS_CLOSE");
   IElementType SQUARE_OPEN       = new ProbeElementType("SQUARE_OPEN");
   IElementType SQUARE_CLOSE      = new ProbeElementType("SQUARE_CLOSE");
   IElementType CURLY_OPEN        = new ProbeElementType("CURLY_OPEN");
   IElementType CURLY_CLOSE       = new ProbeElementType("CURLY_CLOSE");
+
+  IElementType DO   = new ProbeElementType("DO");
+  IElementType DONE = new ProbeElementType("DONE");
 
 }

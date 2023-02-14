@@ -26,8 +26,8 @@ import com.intellij.psi.TokenType;
 
 CRLF=\R
 WHITE_SPACE=[\ \n\t\f]
-WORD=[:letter:][[:letter:]0-9_]+
-NUMBER=[+-]?[0-9]+(\.[0-9]+(_[0-9]+)*)?([eE][+-]?[0-9]+)?([a-zA-Z][a-zA-Z0-9_]*)?
+WORD=[[:letter:]_][[:letter:]0-9_]*
+NUMBER=[+-]?[0-9]([0-9_]*[0-9])*(\.[0-9]([0-9_]*[0-9])*)?([eE][+-]?[0-9]+)?([a-zA-Z][a-zA-Z0-9_]*)?
 
 %state WAITING_VALUE
 
@@ -38,8 +38,26 @@ NUMBER=[+-]?[0-9]+(\.[0-9]+(_[0-9]+)*)?([eE][+-]?[0-9]+)?([a-zA-Z][a-zA-Z0-9_]*)
 <YYINITIAL> "import"                                        { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
 <YYINITIAL> "fun"                                           { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
 <YYINITIAL> "operator"                                      { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
+<YYINITIAL> "class"                                         { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
+<YYINITIAL> "interface"                                     { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
+<YYINITIAL> "let"                                           { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
+<YYINITIAL> "mul"                                           { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
+<YYINITIAL> "ret"                                           { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
+
+<YYINITIAL> "if"                                            { yybegin(YYINITIAL); return ProbeTypes.IF; }
+<YYINITIAL> "elsif"                                         { yybegin(YYINITIAL); return ProbeTypes.ELSIF; }
+<YYINITIAL> "else"                                          { yybegin(YYINITIAL); return ProbeTypes.ELSE; }
+<YYINITIAL> "fi"                                            { yybegin(YYINITIAL); return ProbeTypes.FI; }
 
 <YYINITIAL> "ROOT"                                          { yybegin(YYINITIAL); return ProbeTypes.KEYWORD; }
+<YYINITIAL> "nil"                                           { yybegin(YYINITIAL); return ProbeTypes.KEYWORD; }
+<YYINITIAL> "yes"                                           { yybegin(YYINITIAL); return ProbeTypes.KEYWORD; }
+<YYINITIAL> "no"                                            { yybegin(YYINITIAL); return ProbeTypes.KEYWORD; }
+<YYINITIAL> "me"                                            { yybegin(YYINITIAL); return ProbeTypes.KEYWORD; }
+<YYINITIAL> "Me"                                            { yybegin(YYINITIAL); return ProbeTypes.KEYWORD; }
+
+<YYINITIAL> "do"                                            { yybegin(YYINITIAL); return ProbeTypes.DO; }
+<YYINITIAL> "done"                                          { yybegin(YYINITIAL); return ProbeTypes.DONE; }
 
 <YYINITIAL> "("                                             { yybegin(YYINITIAL); return ProbeTypes.PARENTHESIS_OPEN; }
 <YYINITIAL> ")"                                             { yybegin(YYINITIAL); return ProbeTypes.PARENTHESIS_CLOSE; }
@@ -48,11 +66,75 @@ NUMBER=[+-]?[0-9]+(\.[0-9]+(_[0-9]+)*)?([eE][+-]?[0-9]+)?([a-zA-Z][a-zA-Z0-9_]*)
 <YYINITIAL> "{"                                             { yybegin(YYINITIAL); return ProbeTypes.CURLY_OPEN; }
 <YYINITIAL> "}"                                             { yybegin(YYINITIAL); return ProbeTypes.CURLY_CLOSE; }
 
+<YYINITIAL> "and"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "or"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "not"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "xor"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+
 <YYINITIAL> {WORD}                                          { yybegin(YYINITIAL); return ProbeTypes.WORD; }
 
 <YYINITIAL> {NUMBER}                                        { yybegin(YYINITIAL); return ProbeTypes.NUMBER; }
 
+<YYINITIAL> ";"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> ","                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+
 <YYINITIAL> "<-"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> ":::"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "::"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> ":"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "<=="                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "->"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "==>"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "=>"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "==="                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "=="                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "="                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "!="                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "<>"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "<=>"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "<="                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "-<"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "<<<"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "<<"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "<"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> ">="                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> ">-"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> ">>>"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> ">>"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> ">"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "@"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "@@"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "%%"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "%"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "//"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "/"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "**"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "*"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "--"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "-|"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "-"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "++"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "+"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "!"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "!~"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "^"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "~"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "&&&"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "&&"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "&"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "|||"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "||"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "|-"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "|"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "##"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "#~"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "#"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "???"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "??"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> "?"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+
+<YYINITIAL> \.\.\.                                          { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> \.\.                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
 
 <YYINITIAL> \.                                              { yybegin(YYINITIAL); return ProbeTypes.DOT; }
 
