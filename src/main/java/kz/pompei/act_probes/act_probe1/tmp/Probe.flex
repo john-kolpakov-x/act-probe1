@@ -168,5 +168,3 @@ COMMENT_CONTENT       = ( [^*] | \*+ [^/*] )*
 <STRING> \\"{"                 { str.append( '{' );  }
 <STRING> \\"}"                 { str.append( '}' );  }
 <STRING> \\                    { str.append( '\\' ); }
-
-[^]  { throw new Error("e0v4M3QKQV :: Illegal character <" + yytext() + ">"); }
