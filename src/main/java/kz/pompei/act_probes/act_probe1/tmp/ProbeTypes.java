@@ -21,8 +21,6 @@ public interface ProbeTypes {
   IElementType PARENTHESIS_CLOSE = new ProbeElementType("PARENTHESIS_CLOSE");
   IElementType SQUARE_OPEN       = new ProbeElementType("SQUARE_OPEN");
   IElementType SQUARE_CLOSE      = new ProbeElementType("SQUARE_CLOSE");
-  IElementType CURLY_OPEN        = new ProbeElementType("CURLY_OPEN");
-  IElementType CURLY_CLOSE       = new ProbeElementType("CURLY_CLOSE");
 
   IElementType DO   = new ProbeElementType("DO");
   IElementType DONE = new ProbeElementType("DONE");

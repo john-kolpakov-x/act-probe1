@@ -3,6 +3,7 @@ package kz.pompei.act_probes.act_probe1.gen2.language;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
+import kz.pompei.act_probes.act_probe1.tmp.ProbeElementStr;
 import kz.pompei.act_probes.act_probe1.tmp.ProbeTypes;
 import com.intellij.psi.TokenType;
 
@@ -18,9 +19,9 @@ import com.intellij.psi.TokenType;
 
 %{
 
-  private void asd() {
+  boolean strPart = false;
 
-  }
+  StringBuffer str = new StringBuffer();
 
 %}
 
@@ -29,11 +30,21 @@ WHITE_SPACE=[\ \n\t\f]
 WORD=[[:letter:]_][[:letter:]0-9_]*
 NUMBER=[+-]?[0-9]([0-9_]*[0-9])*(\.[0-9]([0-9_]*[0-9])*)?([eE][+-]?[0-9]+)?([a-zA-Z][a-zA-Z0-9_]*)?
 
-%state WAITING_VALUE
+COMMENT = {TRADITIONAL_COMMENT} | {END_OF_LINE_COMMENT} | {DOC_COMMENT}
+
+LINE_TERMINATOR = \r|\n|\r\n
+INPUT_CHARACTER = [^\r\n]
+
+TRADITIONAL_COMMENT = "/*" [^*] ~"*/" | "/*" "*"+ "/"
+END_OF_LINE_COMMENT = "///" {INPUT_CHARACTER}* {LINE_TERMINATOR}?
+DOC_COMMENT = "/**" {COMMENT_CONTENT} "*"+ "/"
+COMMENT_CONTENT       = ( [^*] | \*+ [^/*] )*
+
+%state STRING
 
 %%
 
-<YYINITIAL> {WHITE_SPACE}                                   { yybegin(YYINITIAL); asd(); return ProbeTypes.WHITE_SPACE; }
+<YYINITIAL> {WHITE_SPACE}                                   { yybegin(YYINITIAL); return ProbeTypes.WHITE_SPACE; }
 
 <YYINITIAL> "import"                                        { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
 <YYINITIAL> "fun"                                           { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
@@ -63,8 +74,6 @@ NUMBER=[+-]?[0-9]([0-9_]*[0-9])*(\.[0-9]([0-9_]*[0-9])*)?([eE][+-]?[0-9]+)?([a-z
 <YYINITIAL> ")"                                             { yybegin(YYINITIAL); return ProbeTypes.PARENTHESIS_CLOSE; }
 <YYINITIAL> "["                                             { yybegin(YYINITIAL); return ProbeTypes.SQUARE_OPEN; }
 <YYINITIAL> "]"                                             { yybegin(YYINITIAL); return ProbeTypes.SQUARE_CLOSE; }
-<YYINITIAL> "{"                                             { yybegin(YYINITIAL); return ProbeTypes.CURLY_OPEN; }
-<YYINITIAL> "}"                                             { yybegin(YYINITIAL); return ProbeTypes.CURLY_CLOSE; }
 
 <YYINITIAL> "and"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
 <YYINITIAL> "or"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
@@ -75,8 +84,10 @@ NUMBER=[+-]?[0-9]([0-9_]*[0-9])*(\.[0-9]([0-9_]*[0-9])*)?([eE][+-]?[0-9]+)?([a-z
 
 <YYINITIAL> {NUMBER}                                        { yybegin(YYINITIAL); return ProbeTypes.NUMBER; }
 
-<YYINITIAL> ";"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
-<YYINITIAL> ","                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> {COMMENT}                                       { /*Nothing to do*/ }
+
+<YYINITIAL> ";"                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+<YYINITIAL> ","                                             { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
 
 <YYINITIAL> "<-"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
 <YYINITIAL> ":::"                                           { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
@@ -138,4 +149,24 @@ NUMBER=[+-]?[0-9]([0-9_]*[0-9])*(\.[0-9]([0-9_]*[0-9])*)?([eE][+-]?[0-9]+)?([a-z
 
 <YYINITIAL> \.                                              { yybegin(YYINITIAL); return ProbeTypes.DOT; }
 
+<YYINITIAL> "{"                                             { str.setLength(0); strPart = false; yybegin(STRING); }
+<YYINITIAL> "}"                                             { str.setLength(0); strPart = true;  yybegin(STRING); }
+
 <YYINITIAL> .                                               { yybegin(YYINITIAL); return TokenType.BAD_CHARACTER; }
+
+
+<STRING> "{"        { yybegin(YYINITIAL); /*XJ4lCT1mZb*/
+                      return new ProbeElementStr(strPart ? ProbeElementStr.STR_INNER : ProbeElementStr.STR_OPEN, str.toString()); }
+<STRING> "}"        { yybegin(YYINITIAL); /*4959336WhA*/
+                      return new ProbeElementStr(strPart ? ProbeElementStr.STR_CLOSE : ProbeElementStr.STR_FULL, str.toString()); }
+
+<STRING> [^\n\r\{\}\\]+          { str.append( yytext() ); }
+<STRING> \\t                   { str.append( '\t' ); }
+<STRING> \\n                   { str.append( '\n' ); }
+
+<STRING> \\r                   { str.append( '\r' ); }
+<STRING> \\"{"                 { str.append( '{' );  }
+<STRING> \\"}"                 { str.append( '}' );  }
+<STRING> \\                    { str.append( '\\' ); }
+
+[^]  { throw new Error("e0v4M3QKQV :: Illegal character <" + yytext() + ">"); }

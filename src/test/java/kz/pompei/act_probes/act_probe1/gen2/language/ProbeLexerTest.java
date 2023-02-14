@@ -2,6 +2,7 @@ package kz.pompei.act_probes.act_probe1.gen2.language;
 
 import com.intellij.psi.tree.IElementType;
 import java.io.IOException;
+import kz.pompei.act_probes.act_probe1.tmp.ProbeElementStr;
 import kz.pompei.act_probes.act_probe1.tmp.ProbeTypes;
 import org.junit.Test;
 
@@ -65,4 +66,44 @@ public class ProbeLexerTest {
                            + " : " + lexer.yytext());
     }
   }
+
+  private static CharSequence advanceStr2(IElementType advance, CharSequence defaultText) {
+    if (advance instanceof ProbeElementStr) {
+      return "`" + ((ProbeElementStr) advance).content + "`";
+    }
+    return defaultText;
+  }
+
+  @Test
+  public void advance_curly() throws IOException {
+    ProbeLexer lexer = new ProbeLexer(null);
+
+    String s = ""
+      + " let x = {Hello World} "
+      + " let y = {Town {  x  } down}"
+      + " let z = {Sequence from {  x  } to { y } and the end}"
+      //
+      ;
+
+    lexer.reset(s, 0, s.length(), ProbeLexer.YYINITIAL);
+
+    for (int i = 0; ; i++) {
+      IElementType advance = lexer.advance();
+
+      if (advance == null) {
+        System.out.println("8u2vW5dyOp :: lexer.str = " + lexer.str);
+        break;
+      }
+
+      if (ProbeTypes.WHITE_SPACE.equals(advance)) {
+        continue;
+      }
+
+      System.out.println("37Gc1wPu7F " + toLen(3, i) + " :: " + toLen(20, advance)
+                           + " :: " + toLen(3, lexer.getTokenStart())
+                           + "..." + toLen(3, lexer.getTokenEnd())
+                           + " : " + advanceStr2(advance, lexer.yytext()));
+    }
+  }
+
 }
