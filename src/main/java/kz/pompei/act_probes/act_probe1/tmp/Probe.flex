@@ -16,15 +16,44 @@ import com.intellij.psi.TokenType;
 %eof{  return;
 %eof}
 
+%{
+
+  private void asd() {
+
+  }
+
+%}
+
+CRLF=\R
 WHITE_SPACE=[\ \n\t\f]
-WORD=\w+
+WORD=[:letter:][[:letter:]0-9_]+
+NUMBER=[+-]?[0-9]+(\.[0-9]+(_[0-9]+)*)?([eE][+-]?[0-9]+)?([a-zA-Z][a-zA-Z0-9_]*)?
 
 %state WAITING_VALUE
 
 %%
 
-<YYINITIAL> {WHITE_SPACE        }                           { yybegin(YYINITIAL); return /*GO1MC57483*/ProbeTypes.WHITE_SPACE; }
+<YYINITIAL> {WHITE_SPACE}                                   { yybegin(YYINITIAL); asd(); return ProbeTypes.WHITE_SPACE; }
+
+<YYINITIAL> "import"                                        { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
+<YYINITIAL> "fun"                                           { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
+<YYINITIAL> "operator"                                      { yybegin(YYINITIAL); return ProbeTypes.KEYWORD_STARTER; }
+
+<YYINITIAL> "ROOT"                                          { yybegin(YYINITIAL); return ProbeTypes.KEYWORD; }
+
+<YYINITIAL> "("                                             { yybegin(YYINITIAL); return ProbeTypes.PARENTHESIS_OPEN; }
+<YYINITIAL> ")"                                             { yybegin(YYINITIAL); return ProbeTypes.PARENTHESIS_CLOSE; }
+<YYINITIAL> "["                                             { yybegin(YYINITIAL); return ProbeTypes.SQUARE_OPEN; }
+<YYINITIAL> "]"                                             { yybegin(YYINITIAL); return ProbeTypes.SQUARE_CLOSE; }
+<YYINITIAL> "{"                                             { yybegin(YYINITIAL); return ProbeTypes.CURLY_OPEN; }
+<YYINITIAL> "}"                                             { yybegin(YYINITIAL); return ProbeTypes.CURLY_CLOSE; }
 
 <YYINITIAL> {WORD}                                          { yybegin(YYINITIAL); return ProbeTypes.WORD; }
 
-[^]                                                         { return TokenType.BAD_CHARACTER; }
+<YYINITIAL> {NUMBER}                                        { yybegin(YYINITIAL); return ProbeTypes.NUMBER; }
+
+<YYINITIAL> "<-"                                            { yybegin(YYINITIAL); return ProbeTypes.SIGN; }
+
+<YYINITIAL> \.                                              { yybegin(YYINITIAL); return ProbeTypes.DOT; }
+
+<YYINITIAL> .                                               { yybegin(YYINITIAL); return TokenType.BAD_CHARACTER; }
