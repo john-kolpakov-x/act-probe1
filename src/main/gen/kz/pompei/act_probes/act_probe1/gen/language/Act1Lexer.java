@@ -506,7 +506,7 @@ class Act1Lexer implements FlexLexer {
             // fall through
           case 10: break;
           case 4: 
-            { yybegin(YYINITIAL); return Act1Types.COMMENT;
+            { yybegin(YYINITIAL); return /*wXnmWn4BFX*/ Act1Types.COMMENT;
             } 
             // fall through
           case 11: break;
