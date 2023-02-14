@@ -3,7 +3,7 @@ package kz.pompei.act_probes.act_probe1.gen2.language;
 
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
-import kz.pompei.act_probes.act_probe1.gen2.psi.ProbeTypes;
+import kz.pompei.act_probes.act_probe1.tmp.ProbeTypes;
 import com.intellij.psi.TokenType;
 
 %%
@@ -23,8 +23,8 @@ WORD=\w+
 
 %%
 
-<YYINITIAL> {WHITE_SPACE        }                           { yybegin(YYINITIAL); return /*GO1MC57483*/Act1Types.WHITE_SPACE; }
+<YYINITIAL> {WHITE_SPACE        }                           { yybegin(YYINITIAL); return /*GO1MC57483*/ProbeTypes.WHITE_SPACE; }
 
-<YYINITIAL> {WORD}                                          { yybegin(YYINITIAL); return Act1Types.WORD; }
+<YYINITIAL> {WORD}                                          { yybegin(YYINITIAL); return ProbeTypes.WORD; }
 
 [^]                                                         { return TokenType.BAD_CHARACTER; }
