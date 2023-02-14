@@ -79,9 +79,9 @@ public class ProbeLexerTest {
     ProbeLexer lexer = new ProbeLexer(null);
 
     String s = ""
-      + " let x = {Hello World} "
-      + " let y = {Town {  x  } down}"
-      + " let z = {Sequence from {  x  } to { y } and the end}"
+      + " let x <- {Hello World} "
+      + " let y <- {Town {  x  } down}"
+      + " let z <- {Sequence from {  x  } to { y } and the end}"
       //
       ;
 

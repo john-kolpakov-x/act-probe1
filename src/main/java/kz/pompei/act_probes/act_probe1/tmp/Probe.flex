@@ -155,9 +155,9 @@ COMMENT_CONTENT       = ( [^*] | \*+ [^/*] )*
 <YYINITIAL> .                                               { yybegin(YYINITIAL); return TokenType.BAD_CHARACTER; }
 
 
-<STRING> "{"        { yybegin(YYINITIAL); /*XJ4lCT1mZb*/
+<STRING> "{"        { yybegin(YYINITIAL);
                       return new ProbeElementStr(strPart ? ProbeElementStr.STR_INNER : ProbeElementStr.STR_OPEN, str.toString()); }
-<STRING> "}"        { yybegin(YYINITIAL); /*4959336WhA*/
+<STRING> "}"        { yybegin(YYINITIAL);
                       return new ProbeElementStr(strPart ? ProbeElementStr.STR_CLOSE : ProbeElementStr.STR_FULL, str.toString()); }
 
 <STRING> [^\n\r\{\}\\]+          { str.append( yytext() ); }
