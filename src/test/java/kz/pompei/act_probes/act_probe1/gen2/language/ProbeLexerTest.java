@@ -37,7 +37,7 @@ public class ProbeLexerTest {
       + "struct\n"
       + "  hello: Int32 <- 78_000\n"
       + "  world: Int64 <- 100\n"
-      + "  message: Text\n"
+      + "  message: Text <- {Hello World 9zu81tRrbF}\n"
       + "do\n"
       + "  operator=(__o__: ^Me @Nullable): Bool @Override\n"
       + "  do\n"
@@ -63,7 +63,7 @@ public class ProbeLexerTest {
       System.out.println("37Gc1wPu7F " + toLen(3, i) + " :: " + toLen(20, advance)
                            + " :: " + toLen(3, lexer.getTokenStart())
                            + "..." + toLen(3, lexer.getTokenEnd())
-                           + " : " + lexer.yytext());
+                           + " : " + advanceStr2(advance, lexer.yytext()));
     }
   }
 
